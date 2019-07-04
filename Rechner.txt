@@ -1,81 +1,86 @@
-package rechner;
-
-import java.awt.event.KeyEvent;
-import java.util.Scanner;
+package rechner; 
+import java.util.Scanner; // Benötigt man für Eingabe 
 
 public class Rechner {
-
-    /**
-     * @param args the command line arguments
-     */
+   
+    static int art; // Add oder Sub
     
-    static int art;
-    static int key;
-    
-    static boolean korrekt = false;
-    static boolean rechnerAktiv = true;
     public static void main(String[] args) {
-        // TODO code application logic here
-        
-        Scanner eingabe = new Scanner(System.in);
+          
+        Scanner eingabe = new Scanner(System.in); // eingabe 
         
         System.out.println("Rechner");
-        while(rechnerAktiv)
+        
+        // Solange 1 ungleich 2 ist... (Endlosschleife)
+        while(1 != 2)
         {
-            if(!korrekt)
-            {
-                System.out.println("Wie lautet deine erste Zahl?");
-                double zahl1 = eingabe.nextDouble();
-                System.out.println("Wie lautet deine zweite Zahl?");
-                double zahl2 = eingabe.nextDouble();
-                System.out.println("Wie willst du rechnen? (ADD = 0 / SUBB = 1)");
-                art = eingabe.nextInt();
-
-                double erg;
-                erg = rechnen(zahl1,zahl2);
-                System.out.println("__________________");
-                if(erg < 0)
-                {
-                    System.out.println("HINWEIS: Du bist im MINUS Bereich.");
-                }
+            System.out.println("Wie lautet deine erste Zahl?");
+            
+            // Eingabe für DOUBLE zahl1"
+            double zahl1 = eingabe.nextDouble();
+            System.out.println("Wie lautet deine zweite Zahl?");
+            
+            // Eingabe für DOUBLE "zahl2"
+            double zahl2 = eingabe.nextDouble();
+            System.out.println("Wie willst du rechnen? (ADD = 0 / SUB = 1)");
+            
+            // Eingabe für INT Art
+            art = eingabe.nextInt();
+         
+            double result;
+            
+            // result bekommt das Ergebnis von zahl1 +/- zahl2
+            result = rechnen(zahl1, zahl2);
+            System.out.println("__________________");
+            
+            if (result < 0) {
+                System.out.println("HINWEIS: Du bist im MINUS Bereich.");
             }
             
                        
             System.out.println("Möchtest du noch einmal rechnen?");
-            int wahl = eingabe.nextInt();
-            if(wahl == 0)
+            
+            // Eingabe für STRING wahl
+            String wahl = eingabe.next();
+            
+            // Wenn wahl == "nein" 
+            if("nein".equals(wahl))
             {
-                rechnerAktiv = false;
+                return;
             }
-            else if(wahl == 1)
+            
+            // Wenn wahl == "ja"
+            else if("ja".equals(wahl))
             {
-                rechnerAktiv = true;
-                korrekt = false;
+                // Ja nochmal rechnen, dieses else if nicht nötig 
+            }
+            else
+            {
+                // Ist wahl nicht "ja" oder "nein", fängt er von vorne an 
             }
         }
     }
+    
+    // Diese Funktion gibt ein DOUBLE zurück
     static double rechnen(double zahl1,double zahl2)
     {
-        double erg = 0;
-        if(art == 0)
-        {
-            erg = zahl1 + zahl2;  
-            korrekt = true;
-            System.out.println("Ergebnis:"+erg);
-        }
-        else if(art == 1)
-        {
-            erg = zahl1 - zahl2;
-            korrekt = true;
-            System.out.println("Ergebnis:"+erg);
-        }         
-        else if(art > 1)
-        {
-            System.out.println("Die Zahl " +art+" hat keine Zuweisung!");
-            System.out.println("Versuche es erneut.");
-            erg = 0;
-        }
-        return erg;
+        double erg = 0;       
+        switch (art) {
+            case 0: // ist art = 0 -> addieren
+                erg = zahl1 + zahl2;
+                System.out.println("Ergebnis:" + erg);
+                break;
+                
+            case 1: // ist art = 1 -> subtraktion
+                erg = zahl1 - zahl2;
+                System.out.println("Ergebnis:" + erg);
+                break;
+            default:
+                System.out.println("Die Zahl " + art + " hat keine Zuweisung!");
+                System.out.println("Versuche es erneut.");
+                erg = 0;          
+        }       
+        return erg; // gibt erg zurück        
     }
     
     
